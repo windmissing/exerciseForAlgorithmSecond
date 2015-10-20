@@ -1,7 +1,8 @@
 Hello exerciseForAlgorithmSecond
+
 steps:
 1.install gtest
-http://www.yolinux.com/TUTORIALS/Cpp-GoogleTest.html#INSTALLATION
+http://blog.csdn.net/mishifangxiangdefeng/article/details/49225961
 
 2.cd tst
 
