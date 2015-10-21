@@ -1,6 +1,10 @@
 CXX = g++
 CXXFLAGS = -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -D__UT__
-INCS = -I./ -I../include/chapter6 -I/opt/gtest/include -I../src/chapter6
+INCS = -I./ \
+	   -I/opt/gtest/include \
+       -I../include/chapter6 \
+	   -I../src/chapter6 \
+       -I../include/chapter22
 
 SRC_6 = ../src/chapter6/Exercise6_5_8.o
 TST_6 = chapter6/Exercise6_5_8Test.o \
@@ -8,7 +12,12 @@ TST_6 = chapter6/Exercise6_5_8Test.o \
 
 CHAPTER6 = $(SRC_6) $(TST_6)
 
-OBJS = $(CHAPTER6)
+SRC_22 = ../src/chapter22/Exercise22_3_6.o
+TST_22 = chapter22/Exercise22_3_6Test.o
+
+CHAPTER22 = $(SRC_22) $(TST_22)
+
+OBJS = $(CHAPTER6) $(CHAPTER22)
 
 testAll: $(OBJS)
 		$(CXX) $(CXXFLAGS) -o testAll  Main_TestAll.cpp $(OBJS) $(INCS)
