@@ -6,6 +6,7 @@ INCS = -I./ \
 	   -I../src/chapter6 \
        -I../include/chapter7 \
        -I../include/chapter10 \
+       -I../include/chapter13 \
        -I../include/chapter16 \
        -I../include/chapter22
 
@@ -25,6 +26,11 @@ TST_10 = chapter10/Exercise10_1_2Test.o
 
 CHAPTER10 = $(SRC_10) $(TST_10)
 
+SRC_13 = ../src/chapter13/redBlackTree.o
+TST_13 = chapter13/redBlackTreeTest.o
+
+CHAPTER13 = $(SRC_13) $(TST_13)
+
 SRC_16 = ../src/chapter16/Exercise16_2_6.o
 TST_16 = chapter16/Exercise16_2_6Test.o
 
@@ -35,7 +41,7 @@ TST_22 = chapter22/Exercise22_3_6Test.o
 
 CHAPTER22 = $(SRC_22) $(TST_22)
 
-OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER10) $(CHAPTER16) $(CHAPTER22)
+OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER10) $(CHAPTER13) $(CHAPTER16) $(CHAPTER22)
 
 testAll: $(OBJS)
 		$(CXX) $(CXXFLAGS) -o testAll  Main_TestAll.cpp $(OBJS) $(INCS)
