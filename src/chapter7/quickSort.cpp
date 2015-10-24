@@ -8,6 +8,8 @@
 #include<iostream>
 using namespace std;
 
+#include<stdlib.h>
+
 //输出过程
 void Print(int *A, int len)
 {

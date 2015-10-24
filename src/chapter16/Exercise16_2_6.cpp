@@ -34,7 +34,6 @@ int Randomized_Partition(node *A, int p, int r)
 {
 	//随机选择数组中一个数作为主元
 	int i = rand() % (r-p+1) + p;
-	i = r;
 	swap(A[r], A[i]);
 	//划分
 	return Partition(A, p, r);
