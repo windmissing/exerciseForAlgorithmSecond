@@ -1,0 +1,6 @@
+*.d
+*.o
+*.oxx
+*.cpp~
+**/tst/testAll
+
