@@ -8,6 +8,7 @@ INCS = -I./ \
        -I../include/chapter10 \
        -I../include/chapter13 \
        -I../include/chapter16 \
+       -I../include/chapter20 \
        -I../include/chapter22
 
 SRC_6 = ../src/chapter6/Exercise6_5_8.o
@@ -36,12 +37,17 @@ TST_16 = chapter16/Exercise16_2_6Test.o
 
 CHAPTER16 = $(SRC_16) $(TST_16)
 
+SRC_20 = ../src/chapter20/FibHeap.o
+TST_20 = chapter20/FibHeapTest.o
+
+CHAPTER20 = $(SRC_20) $(TST_20)
+
 SRC_22 = ../src/chapter22/Exercise22_3_6.o
 TST_22 = chapter22/Exercise22_3_6Test.o
 
 CHAPTER22 = $(SRC_22) $(TST_22)
 
-OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER10) $(CHAPTER13) $(CHAPTER16) $(CHAPTER22)
+OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER10) $(CHAPTER13) $(CHAPTER16) $(CHAPTER20) $(CHAPTER22)
 
 testAll: $(OBJS)
 		$(CXX) $(CXXFLAGS) -o testAll  Main_TestAll.cpp $(OBJS) $(INCS)
