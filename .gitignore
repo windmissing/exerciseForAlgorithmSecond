@@ -3,4 +3,8 @@
 *.oxx
 *.cpp~
 **/tst/testAll
+*.gcda
+*.gcno
+log.info
+result
 

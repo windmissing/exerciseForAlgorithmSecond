@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -D__UT__
+CXXFLAGS = -g -L/opt/gtest/lib -lgtest -lgtest_main -lpthread -D__UT__ -fprofile-arcs  -ftest-coverage
 INCS = -I./ \
 	   -I/opt/gtest/include \
        -I../include/chapter6 \
@@ -9,7 +9,8 @@ INCS = -I./ \
        -I../include/chapter13 \
        -I../include/chapter16 \
        -I../include/chapter20 \
-       -I../include/chapter22
+       -I../include/chapter22 \
+       -I../include/chapter26
 
 SRC_6 = ../src/chapter6/Exercise6_5_8.o
 TST_6 = chapter6/Exercise6_5_8Test.o \
@@ -47,7 +48,12 @@ TST_22 = chapter22/Exercise22_3_6Test.o
 
 CHAPTER22 = $(SRC_22) $(TST_22)
 
-OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER10) $(CHAPTER13) $(CHAPTER16) $(CHAPTER20) $(CHAPTER22)
+SRC_26 = ../src/chapter26/MaxFlow.o
+TST_26 = chapter26/MaxFlowTest.o
+
+CHAPTER26 = $(SRC_26) $(TST_26)
+
+OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER10) $(CHAPTER13) $(CHAPTER16) $(CHAPTER20) $(CHAPTER22) $(CHAPTER26)
 
 testAll: $(OBJS)
 		$(CXX) $(CXXFLAGS) -o testAll  Main_TestAll.cpp $(OBJS) $(INCS)
@@ -57,4 +63,4 @@ testAll: $(OBJS)
 
 
 clean:
-		rm  testAll */*.o testAll.xml
+		rm  testAll */*.o testAll.xml *.gcov ../src/*/*.o */*.gcno */*.gcda ../src/*/*.gcno ../src/*/*.gcda
