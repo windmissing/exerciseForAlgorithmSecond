@@ -3,7 +3,6 @@ using namespace std;
 
 #include "array.h"
 
-int solve9_1_1(vector<int> array);
 
 class CArrayFor_9_3_6:public CArray
 {

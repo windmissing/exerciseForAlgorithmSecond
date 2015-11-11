@@ -1,17 +1,10 @@
 #include <iostream>
 using namespace std;
 
-#include "Chapter9.h"
-
 #include "gtest/gtest.h"
-#include "gmock/gmock.h"
-// Tests factorial of negative numbers.
-//
-using ::testing::_;
-using ::testing::SetArgPointee;
-using ::testing::DoAll;
-using ::testing::Return;
-using ::testing::Pointee;
+#include "Exercise9_1_1.h"
+
+#define     NUMOF(x)        (sizeof(x)/sizeof(*(x)))
 
 vector<int> initArray(int *data, int len)
 {
@@ -32,7 +25,20 @@ TEST(oneData, shouleReturn0)
 	int data[1] = {1};
 	vector<int> array = initArray(data, 1);
 	EXPECT_EQ(0, solve9_1_1(array));
-	cout<<solve9_1_1(array)<<endl;
+}
+
+TEST(twoData, shouldGetTheFirstOne)
+{
+	int data[2] = {2, 1};
+	vector<int> array = initArray(data, NUMOF(data));
+	EXPECT_EQ(2, solve9_1_1(array));
+}
+
+TEST(twoData, shouldGetTheSecondOne)
+{
+	int data[2] = {1, 2};
+	vector<int> array = initArray(data, NUMOF(data));
+	EXPECT_EQ(2, solve9_1_1(array));
 }
 
 TEST(evenDataCount, secondDataInFirst)
@@ -76,3 +82,4 @@ TEST(oddDataCount, secondDataInLast)
 	vector<int> array = initArray(data, 5);
 	EXPECT_EQ(2, solve9_1_1(array));
 }
+

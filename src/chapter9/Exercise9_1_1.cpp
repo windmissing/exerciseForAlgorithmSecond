@@ -1,122 +1,83 @@
 #include <iostream>
 using namespace std;
 
-#include "Chapter9.h"
+#include "Exercise9_1_1.h"
 
-//第一遍求最小值的结果用树表示
-struct node
+int *nextTarget;
+int *nextSecond;
+int headTarget = 0;
+void prepare(int size)
 {
-	int key;
-	node *next;//指向同一层中的下一个元素
-	node *p;
-	node *left;
-	node *right;
-	node(int k):key(k),next(NULL),p(NULL),left(NULL),right(NULL){}
-};
+	nextTarget = new int[size];
+	for(int i = 0; i < size; i++)
+		nextTarget[i] = i + 1;
+	nextTarget[size-1] = -1;
+	nextSecond = new int[size];
+	for(int i = 0; i < size; i++)
+		nextSecond[i] = -1;
+}
 
-node* prepareLeaves(const vector<int> & array);
-int Find_S2(node *head);
+void release()
+{
+	delete []nextTarget;
+	delete []nextSecond;
+}
+
+int Find_S2(vector<int> array);
 
 int solve9_1_1(vector<int> array)
 {
-	cout<<array.size()<<endl;
 	if(array.size() < 2)
 		return 0;
-	node *head = prepareLeaves(array);
+	prepare(array.size());
 	//运行算法并输出结果
-	int ret = Find_S2(head);
-	//release(head);
+	int ret = Find_S2(array);
+	release();
 	return ret;
 }
 
-node* prepareLeaves(const vector<int> & array)
+int compare(vector<int> array, int a, int b)
 {
-	node *head = NULL;
-	for(int i = 0; i < array.size(); i++)
+	if(array[a] < array[b])
 	{
-		//构造成树的最底层结点
-		node *p = new node(array[i]);
-		p->next = head;
-		head = p;
+		nextSecond[b] = nextSecond[a];
+		nextSecond[a] = b;
+		return a;
 	}
-	return head;
+	else
+	{
+		nextSecond[a] = nextSecond[b];
+		nextSecond[b] = a;
+		return b;
+	}
 }
-
 //求第二小值
-int Find_S2(node *head)
+int Find_S2(vector<int> array)
 {
-	node *p, *q, *r, *t;
-	//step1：求最小值
-	//两两比较，较小的一个进入下一轮，这个循环当只剩下一个元素时结束
-	while(head->next != NULL)
+	int head = headTarget;
+	while(nextTarget[head] != -1)
 	{
-		//从第一个元素开始，head指向比完后较小的那一组数据中的第一个
-		p = head;head = NULL;
-		while(p)
+		int a = head, pre = head, b;
+		while(a != -1 && nextTarget[a] != -1)
 		{
-			//如果这组数据有奇数个，最后一个元素直接晋级
-			if(p->next == NULL)
-			{
-				r = new node(p->key);
-				r->left = p;
-				p->p = r;
-				p = p->next;
-			}
-			//p与p->next比较，较小的元素晋级
+			b = nextTarget[a];
+			int ret = compare(array, a, b);
+			if(a == head)
+				head = ret;
 			else
-			{
-				q = p->next;
-				r = new node(min(p->key, q->key));
-				r->left = p;
-				r->right = q;
-				p->p = r;
-				q->p = r;
-				p = q->next;
-			}
-			//head指向比完后较小的那一组数据中的第一个，t用于把head指向的数据链成链表
-			if(head == NULL)
-			{
-				head = r;
-				t=  head;
-			}
-			else
-			{
-				t->next = r;
-				t = r;
-			}
+				nextTarget[pre] = ret;
+			nextTarget[ret] = nextTarget[b];
+			a = nextTarget[b];
+			pre = ret;
 		}
 	}
-	//step2：求最第二小值
-	//Min用于存储最小值，Min2用于存储第二小值
-	int Min = head->key, Min2 = 0x7fffffff;
-	//从根结点向下比较
-	p = head;
-	//比较到叶子结点时循环结束
-	while(p->left != NULL)
+	head = nextSecond[head];
+	int min = array[head];
+	while(nextSecond[head] != -1)
 	{
-		//当前结点的值来源于右孩子
-		if(p->right && p->right->key == Min)
-		{
-			Min2 = min(Min2, p->left->key);
-			p = p->right;
-		}
-		//当前结点的值来源于左孩子
-		else
-		{
-			//由左孩子直接晋级的情况
-			if(p->right)
-				Min2 = min(Min2, p->right->key);
-			p = p->left;
-		}
+		head = nextSecond[head];
+		if(array[head] < min)
+			min = array[head];
 	}
-	return Min2;
+	return min;
 }
-#if 0
-//测试
-int main()
-{
-	int A[8] = {0};
-
-	return 0;
-}
-#endif

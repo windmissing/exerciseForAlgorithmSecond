@@ -24,7 +24,7 @@ void Print(int *A, int len)
 
 /************************7.1普通快排************************************************/
 //划分
-int Partition(int *A, int p, int r)
+static int Partition(int *A, int p, int r)
 {
 	//选择A[r]作为主元
 	int x = A[r];

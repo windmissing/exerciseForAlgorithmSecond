@@ -5,6 +5,7 @@ INCS = -I./ \
        -I../include/chapter6 \
 	   -I../src/chapter6 \
        -I../include/chapter7 \
+       -I../include/chapter9 \
        -I../include/chapter10 \
        -I../include/chapter13 \
        -I../include/chapter16 \
@@ -18,10 +19,8 @@ TST_6 = chapter6/Exercise6_5_8Test.o \
 
 CHAPTER6 = $(SRC_6) $(TST_6)
 
-SRC_7 = ../src/chapter7/quickSort.o
-TST_7 = chapter7/quickSortTest.o 
-
-CHAPTER7 = $(SRC_7) $(TST_7)
+include chapter7/makefile.mk
+include chapter9/makefile.mk
 
 SRC_10 = ../src/chapter10/Exercise10_1_2.o
 TST_10 = chapter10/Exercise10_1_2Test.o
@@ -53,10 +52,11 @@ TST_26 = chapter26/MaxFlowTest.o
 
 CHAPTER26 = $(SRC_26) $(TST_26)
 
-OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER10) $(CHAPTER13) $(CHAPTER16) $(CHAPTER20) $(CHAPTER22) $(CHAPTER26)
+OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER9) $(CHAPTER10) $(CHAPTER13) $(CHAPTER16) $(CHAPTER20) $(CHAPTER22) $(CHAPTER26)
 
 testAll: $(OBJS)
 		$(CXX) $(CXXFLAGS) -o testAll  Main_TestAll.cpp $(OBJS) $(INCS)
+		./testAll
 
 .cpp.o:
 	$(CXX) $(CXXFLAGS) -c $< -o $@ $(INCS)

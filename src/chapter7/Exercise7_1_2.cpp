@@ -9,7 +9,7 @@
 using namespace std;
 
 //划分
-int Partition(int *A, int p, int r)
+static int Partition(int *A, int p, int r)
 {
 	//选择A[r]作为主元
 	int x = A[r];
@@ -29,4 +29,18 @@ int Partition(int *A, int p, int r)
 	swap(A[i+1], A[r]);
 	//返回最终主元的位置
 	return i+1;
-} 
+}
+
+void QuickSort7_1_2(int *A, int p, int r)
+{
+	if(p < r)
+	{
+		//以某个主元为标准，把数组分为两部分，左边都比主元小，右边都比主元大
+		int q = Partition(A, p, r);
+		//分别对左边和右边排序
+		QuickSort7_1_2(A, p, q-1);
+		QuickSort7_1_2(A, q+1, r);
+	}
+}
+
+ 
