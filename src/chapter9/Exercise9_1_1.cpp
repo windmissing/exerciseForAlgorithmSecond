@@ -6,8 +6,10 @@ using namespace std;
 int *nextTarget;
 int *nextSecond;
 int headTarget = 0;
+
 void prepare(int size)
 {
+	headTarget = 0;
 	nextTarget = new int[size];
 	for(int i = 0; i < size; i++)
 		nextTarget[i] = i + 1;
@@ -23,7 +25,8 @@ void release()
 	delete []nextSecond;
 }
 
-int Find_S2(vector<int> array);
+int findSmallest(vector<int> array);
+int findSecondSmaller(vector<int> array, int smallestIndex);
 
 int solve9_1_1(vector<int> array)
 {
@@ -31,28 +34,25 @@ int solve9_1_1(vector<int> array)
 		return 0;
 	prepare(array.size());
 	//运行算法并输出结果
-	int ret = Find_S2(array);
+	int smallestIndex = findSmallest(array);
+	int secondSmaller = findSecondSmaller(array, smallestIndex);
 	release();
-	return ret;
+	return secondSmaller;
 }
 
 int compare(vector<int> array, int a, int b)
 {
-	if(array[a] < array[b])
-	{
-		nextSecond[b] = nextSecond[a];
-		nextSecond[a] = b;
-		return a;
-	}
-	else
-	{
-		nextSecond[a] = nextSecond[b];
-		nextSecond[b] = a;
-		return b;
-	}
+	int smallIndex = array[a] < array[b] ? a : b;
+	int bigIndex = array[a] > array[b] ? a : b;
+
+	nextSecond[bigIndex] = nextSecond[smallIndex];
+	nextSecond[smallIndex] = bigIndex;
+
+	nextTarget[smallIndex] = nextTarget[b];
+	return smallIndex;
 }
-//求第二小值
-int Find_S2(vector<int> array)
+
+int findSmallest(vector<int> array)
 {
 	int head = headTarget;
 	while(nextTarget[head] != -1)
@@ -66,11 +66,16 @@ int Find_S2(vector<int> array)
 				head = ret;
 			else
 				nextTarget[pre] = ret;
-			nextTarget[ret] = nextTarget[b];
 			a = nextTarget[b];
 			pre = ret;
 		}
 	}
+	return head;
+}
+
+int findSecondSmaller(vector<int> array, int smallestIndex)
+{
+	int head = smallestIndex;
 	head = nextSecond[head];
 	int min = array[head];
 	while(nextSecond[head] != -1)

@@ -42,10 +42,7 @@ TST_20 = chapter20/FibHeapTest.o
 
 CHAPTER20 = $(SRC_20) $(TST_20)
 
-SRC_22 = ../src/chapter22/Exercise22_3_6.o
-TST_22 = chapter22/Exercise22_3_6Test.o
-
-CHAPTER22 = $(SRC_22) $(TST_22)
+include chapter22/makefile.mk
 
 SRC_26 = ../src/chapter26/MaxFlow.o
 TST_26 = chapter26/MaxFlowTest.o
