@@ -32,10 +32,7 @@ TST_13 = chapter13/redBlackTreeTest.o
 
 CHAPTER13 = $(SRC_13) $(TST_13)
 
-SRC_16 = ../src/chapter16/Exercise16_2_6.o
-TST_16 = chapter16/Exercise16_2_6Test.o
-
-CHAPTER16 = $(SRC_16) $(TST_16)
+include chapter16/makefile.mk
 
 SRC_20 = ../src/chapter20/FibHeap.o
 TST_20 = chapter20/FibHeapTest.o
