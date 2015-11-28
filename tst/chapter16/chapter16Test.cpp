@@ -20,21 +20,6 @@ using namespace std;
 2 13
 12 14
 */
-/*
-int main()
-{
-	int i;
-	//输入测试数据
-	for(i = 0; i <= N; i++)
-	{
-		A[i].id = i;
-		if(i == 0){A[i].start = 0;A[i].finish = 0;}
-		else cin>>A[i].start>>A[i].finish;
-	}
-	Reccursive_Activity_Selector(0, N);
-	Greedy_Activity_Selector();
-	return 0;
-}*/
 
 static vector<activity> data2vector(int* data, int len)
 {
@@ -85,7 +70,7 @@ TEST(greedy_activity_selector, test_in_book__should_result_right)
 TEST(reccursive_activity_selector, no_activity_should_return_nothing)
 {
 	vector<activity> param;
-	vector<int> ret = Reccursive_Activity_Selector(param);
+	vector<int> ret = Greedy_Activity_Selector(param);
 	EXPECT_EQ(0, ret.size());
 }
 

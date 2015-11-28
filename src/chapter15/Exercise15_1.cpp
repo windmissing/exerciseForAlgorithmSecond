@@ -1,75 +1,67 @@
 #include <iostream>
+#include <algorithm>
+#include <cmath>
 using namespace std;
 
-#define N 11
-//一个活动用一个结点表示
-struct node
+#define ARRAY_SIZE 15
+#include "Exercise15_1.h"
+
+//用于排序
+static bool cmp(coord a, coord b)
 {
-	int id;
-	int start;
-	int finish;
-}A[N+1];
-//递归贪心算法，在第i个活动执行结束之后的贪心策略，初始时i=0
-void Reccursive_Activity_Selector(int i, int n)
-{
-	//找到第一个开始时间在第i个活动结束之后的活动
-	int m = i+1;
-	while(m <= n && A[m].start < A[i].finish)
-		m++;
-	//若找到了
-	if(m <= n)
-	{
-		//将这个活动作为执行活动
-		cout<<m<<' ';
-		//递归第m个活动执行结束之后的贪心策略
-		return Reccursive_Activity_Selector(m, n);
-	}
-	cout<<endl;
-	return;
+	return a.x < b.x;
 }
-//迭代的贪心算法
-void Greedy_Activity_Selector()
+//计算d[i][j]
+double dis(const vector<coord> &s, int i, int j)
 {
-	//在第i个活动执行结束之后的贪心策略，初始时i=0
-	int n = N, i = 0, m;
-	for(m = 1; m <= n; m++)
+	double temp = pow((s[i].x-s[j].x)*1.0, 2) + pow((s[i].y-s[j].y)*1.0, 2);
+	return sqrt(temp);
+}
+
+double Double_adjustable_Euclidean_traveling_salesman(vector<coord> s)
+{
+	return 0;
+	//int n = s.size();
+	//if(n == 0)return 0;
+//	int i, j, k;
+	//根据x从小到大排序
+//	sort(s.begin(), s.end(), cmp);
+	double ans[ARRAY_SIZE][ARRAY_SIZE] = {0};
+#if 0
+	for(i = 0; i < n; i++)
 	{
-		//找到第一个开始时间在第i个活动结束之后的活动
-		if(A[m].start >= A[i].finish)
+		//s[0][0]=0
+		//(2)当j=i时，s[i][j]=s[i][i]=s[i][i-1]+d[i-1][i]
+		if(i)ans[i][i] = ans[i][i-1] + dis(s, i-1, i);
+		//(3)当j=i+1时,s[i][j]=MIN(s[i][k]+d[k][j])，其中0<=k<i
+		double min = 0x7fffffff, temp;
+		//s[0][1]=d[0][1]
+		if(i < n - 1)
 		{
-			//将这个活动作为执行活动
-			cout<<A[m].id<<' ';
-			//递归第m个活动执行结束之后的贪心策略
-			i = m;
+			if(i == 0)
+				min = dis(s, 0, 1);
+			else
+			{
+				for(k = 0; k < i; k++)
+				{
+					temp = ans[i][k] + dis(s, k, i+1);
+					if(temp < min)
+						min = temp;
+				}
+			}
+			//s[i][j]=s[j][i]
+			ans[i][i+1] = min;
+			ans[i+1][i] = min;//(1)s[i][j] = s[j][i]
+		}
+		//(4)当j>i+1时，s[i][j]=s[i][j-1]+d[j-1][j]
+		for(j = i + 2; j < n; j++)
+		{
+			//s[i][j]=s[j][i]
+			ans[i][j] = ans[i][j-1] + dis(s, j-1, j);
+			ans[j][i] = ans[i][j];
 		}
 	}
-	cout<<endl;
-}
-/*
-0 0 //虚构活动a0
-1 4
-3 5
-0 6
-5 7
-3 8
-5 9
-6 10
-8 11
-8 12
-2 13
-12 14
-*/
-int main()
-{
-	int i;
-	//输入测试数据
-	for(i = 0; i <= N; i++)
-	{
-		A[i].id = i;
-		if(i == 0){A[i].start = 0;A[i].finish = 0;}
-		else cin>>A[i].start>>A[i].finish;
-	}
-	Reccursive_Activity_Selector(0, N);
-	Greedy_Activity_Selector();
-	return 0;
+#endif
+	//cout<<ans[n-1][n-1]<<endl;
+	//return ans[n-1][n-1];
 }

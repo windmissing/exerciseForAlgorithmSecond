@@ -32,6 +32,8 @@ TST_13 = chapter13/redBlackTreeTest.o
 
 CHAPTER13 = $(SRC_13) $(TST_13)
 
+include chapter14/makefile.mk
+include chapter15/makefile.mk
 include chapter16/makefile.mk
 
 SRC_20 = ../src/chapter20/FibHeap.o
@@ -46,7 +48,7 @@ TST_26 = chapter26/MaxFlowTest.o
 
 CHAPTER26 = $(SRC_26) $(TST_26)
 
-OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER9) $(CHAPTER10) $(CHAPTER13) $(CHAPTER16) $(CHAPTER20) $(CHAPTER22) $(CHAPTER26)
+OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER9) $(CHAPTER10) $(CHAPTER13) $(CHAPTER14) $(CHAPTER15) $(CHAPTER16) $(CHAPTER20) $(CHAPTER22) $(CHAPTER26)
 
 testAll: $(OBJS)
 		$(CXX) $(CXXFLAGS) -o testAll  Main_TestAll.cpp $(OBJS) $(INCS)
@@ -57,4 +59,4 @@ testAll: $(OBJS)
 
 
 clean:
-		rm  testAll */*.o testAll.xml *.gcov ../src/*/*.o */*.gcno */*.gcda ../src/*/*.gcno ../src/*/*.gcda
+		rm -r testAll */*.o testAll.xml *.gcov ../src/*/*.o */*.gcno */*.gcda ../src/*/*.gcno ../src/*/*.gcda
