@@ -134,9 +134,10 @@ void Os_Tree::insertFixup(ostNode *z)
 }
 
 //插入一个结点
-void Os_Tree::insert(int key)
+void Os_Tree::insert(int key, int info)
 {
 	ostNode *z = new ostNode(nil, key);
+	z->info = info;
 	//将新插入的结点转为红色
 	z->color = RED;
 	if(root == nil)

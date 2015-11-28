@@ -19,6 +19,7 @@ struct ostNode
 	ostNode *right;
 	ostNode *parent;
 	int key;
+	int info;
 	bool color;
 	int size;//以x为根的子树的（内部）结点数（包括x本身），即子树的大小
 	ostNode *init;
@@ -56,7 +57,7 @@ private:
 public:
 	Os_Tree(){nil->size = 0;root = nil;};
 	~Os_Tree();
-	void insert(int key);
+	void insert(int key, int info /* = 0 */);
 	ostNode *search(int k);
 	ostNode *remove(ostNode *z);
 	static bool isNodeNull(ostNode *z);
