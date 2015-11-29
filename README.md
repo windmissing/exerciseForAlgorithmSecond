@@ -1,11 +1,11 @@
 Hello exerciseForAlgorithmSecond
 
-steps:
-1.install gtest
-http://blog.csdn.net/mishifangxiangdefeng/article/details/49225961
+STEP 1:install gtest
+reference :http://blog.csdn.net/mishifangxiangdefeng/article/details/49225961
 
-2.cd tst
+STEP 2:build tests
+cd tst
+make
 
-3.make
-
-4. ./testAll
+STEP 3:run tests
+./testAll
