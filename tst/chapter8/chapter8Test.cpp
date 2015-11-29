@@ -44,3 +44,12 @@ TEST(counting_sort, sort)
 		EXPECT_EQ(C[i], B[i]);
 }
 
+TEST(radix_sort, sort)
+{
+	int A[] = {0, 5, 44, 3, 2222, 1};
+	int B[6] = {};
+	int C[] = {0, 1, 3, 5, 44, 2222};
+	Radix_Sort(A, B, 5, 4);
+	for(int i = 1; i <= 5; i++)
+		EXPECT_EQ(C[i], B[i]);
+}

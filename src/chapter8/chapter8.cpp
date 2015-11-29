@@ -50,9 +50,9 @@ void Counting_Sort(int *A, int *B, int length_A, int k)
 	}
 	delete C;
 }
-/*
+
 //基数排序调用的稳定排序
-void Stable_Sort(int *A, int *B, int k, int d)
+void Stable_Sort_For_Radix(int *A, int *B, int length_A, int k, int d)
 {
 	int i, j;
 	//将C数组初始化为0，用于计数
@@ -83,18 +83,16 @@ void Stable_Sort(int *A, int *B, int k, int d)
 	delete []D;
 }
 //基数排序
-void Radix_Sort(int *A, int *B)
+void Radix_Sort(int *A, int *B, int length_A, int digit)
 {
 	int i, j;
 	//依次对每一位进行排序，从低位到高位
 	for(i = 1; i <= digit; i++)
 	{
-		Stable_Sort(A, B, 9, i);
+		Stable_Sort_For_Radix(A, B, length_A, 9, i);
 		//输入的是A，输出的是B，再次排序时要把输出数据放入输出数据中
 		for(j = 1; j <= length_A; j++)
 		A[j] = B[j];
 	}
 }
-*/
-
 
