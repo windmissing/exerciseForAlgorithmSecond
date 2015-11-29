@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "Chapter7.h"
+#include "Exercise7_6.h"
 
 static void quickSort(ARRAY & array, int left, int right);
 static divid partition(ARRAY &array, int left, int right);

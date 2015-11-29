@@ -4,7 +4,6 @@ INCS = -I./ \
 	   -I/opt/gtest/include \
        -I../include/chapter6 \
 	   -I../src/chapter6 \
-       -I../include/chapter7 \
        -I../include/chapter9 \
        -I../include/chapter10 \
        -I../include/chapter13 \
