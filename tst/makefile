@@ -19,6 +19,7 @@ TST_6 = chapter6/Exercise6_5_8Test.o \
 CHAPTER6 = $(SRC_6) $(TST_6)
 
 include chapter7/makefile.mk
+include chapter8/makefile.mk
 include chapter9/makefile.mk
 
 SRC_10 = ../src/chapter10/Exercise10_1_2.o
@@ -47,7 +48,7 @@ TST_26 = chapter26/MaxFlowTest.o
 
 CHAPTER26 = $(SRC_26) $(TST_26)
 
-OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER9) $(CHAPTER10) $(CHAPTER13) $(CHAPTER14) $(CHAPTER15) $(CHAPTER16) $(CHAPTER20) $(CHAPTER22) $(CHAPTER26)
+OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER8) $(CHAPTER9) $(CHAPTER10) $(CHAPTER13) $(CHAPTER14) $(CHAPTER15) $(CHAPTER16) $(CHAPTER20) $(CHAPTER22) $(CHAPTER26)
 
 testAll: $(OBJS)
 		$(CXX) $(CXXFLAGS) -o testAll  Main_TestAll.cpp $(OBJS) $(INCS)

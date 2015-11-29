@@ -8,6 +8,9 @@
 #include <cmath>
 using namespace std;
 
+#include "chapter8.h"
+
+/*
 int length_A, digit;
 
 void Print(int *A, int start, int end)
@@ -21,9 +24,9 @@ void Print(int *A, int start, int end)
 	}
 	cout<<'}'<<endl;
 }
-
+*/
 //计数排序
-void Counting_Sort(int *A, int *B, int k)
+void Counting_Sort(int *A, int *B, int length_A, int k)
 {
 	int i, j;
 	//将C数组初始化为0，用于计数
@@ -47,6 +50,7 @@ void Counting_Sort(int *A, int *B, int k)
 	}
 	delete C;
 }
+/*
 //基数排序调用的稳定排序
 void Stable_Sort(int *A, int *B, int k, int d)
 {
@@ -91,25 +95,6 @@ void Radix_Sort(int *A, int *B)
 		A[j] = B[j];
 	}
 }
+*/
 
-int main()
-{
-	cin>>length_A>>digit;
-	int *A = new int[length_A+1];
-	int *B = new int[length_A+1];
-	int i;
-	//随机产生length_A个digit位的数据
-	for(i = 1; i <= length_A; i++)
-	{
-		A[i] = 0;
-		while(A[i] < (int)pow(10.0, digit-1))
-			A[i] = rand() % (int)pow(10.0, digit);
-	}
-	Print(A, 1, length_A);
-//	Counting_Sort(A, B, 9);
-	Radix_Sort(A, B);
-	Print(A, 1, length_A);
-	delete []A;
-	delete []B;
-	return 0;
-}
+
