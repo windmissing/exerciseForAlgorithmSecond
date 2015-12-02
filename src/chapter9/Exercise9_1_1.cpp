@@ -81,7 +81,7 @@ int findSmallest(vector<int> array)
 	int head = headTarget;
 	while(twoMoreElementsLeft(head))
 	{
-		int a = head, pre , b, ret;
+		int a = head, pre, b, ret;
 		while(getTopTwoElements(a, b))
 		{
 			ret = compare(array, a, b);
