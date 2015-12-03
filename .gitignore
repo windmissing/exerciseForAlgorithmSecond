@@ -7,4 +7,5 @@
 *.gcno
 log.info
 result
+*.sh
 
