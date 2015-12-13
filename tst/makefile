@@ -9,7 +9,6 @@ INCS = -I./ \
        -I../include/chapter13 \
        -I../include/chapter16 \
        -I../include/chapter20 \
-       -I../include/chapter22 \
        -I../include/chapter26
 
 SRC_6 = ../src/chapter6/Exercise6_5_8.o
@@ -52,7 +51,7 @@ OBJS = $(CHAPTER6) $(CHAPTER7) $(CHAPTER8) $(CHAPTER9) $(CHAPTER10) $(CHAPTER13)
 
 testAll: $(OBJS)
 		$(CXX) $(CXXFLAGS) -o testAll  Main_TestAll.cpp $(OBJS) $(INCS)
-		./testAll
+#		./testAll
 
 .cpp.o:
 	$(CXX) $(CXXFLAGS) -c $< -o $@ $(INCS)
