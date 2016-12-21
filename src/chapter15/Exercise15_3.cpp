@@ -1,61 +1,102 @@
 #include <iostream>  
-using namespace std;  
+using namespace std; 
+#include <string>
+
 //6种操作的代价，依次是copy,replace,delete,insert,twiddle,kill  
 int cost[6] = {1,1,1,1,1,1};  
-int s[15][15] = {0};  
-//字符从0开始计数，s[][]从1开始  
-int DP(char *x, char *z, int lx, int lz)  
-{  
-    int i = 0, j = 0,temp;  
-    //初始化s[0][0]=0  
-    //s[i,0] = i * cost(delete)  
-    for(i = 1; i <= lx; i++)  
-        s[i][0] = i * cost[2];  
-    //s[0,j] = j * cost[insert]  
-    for(j = 1; j <= lz; j++)  
-        s[0][j] = i * cost[3];  
-    //DP  
-    for(i = 0; i < lx; i++)  
+int c[15][15] = {0};  
+
+
+void init(int ls, int ld)
+{
+	int i = 0, j = 0;  
+    //初始化c[0][0]=0  
+    //c[i,0] = i * cost(delete)  
+    for(i = 1; i <= ls; i++)  
+        c[i][0] = i * cost[2];  
+    //c[0,j] = j * cost[insert]  
+    for(j = 1; j <= ld; j++)  
+        c[0][j] = i * cost[3];  
+}
+
+int copyOperation(int i, int j, char s, char d)
+{
+	int ret = c[i+1][j+1];
+	if(s == d)  
     {  
-        for(j = 0; j < lz; j++)  
+        int temp = c[i][j] + cost[0];  
+        if(temp < ret)  
+            ret = temp;  
+    }
+	return ret;
+}
+
+int replaceOperation(int i, int j, char s, char d)
+{
+	int ret = c[i+1][j+1];
+	if(s != d)  
+    {  
+        int temp = c[i][j] + cost[1];  
+        if(temp < ret)  
+            ret = temp;  
+    }
+	return ret;
+}
+
+int deleteOperation(int i, int j)
+{
+	int ret = c[i+1][j+1];
+	int temp = c[i][j+1] + cost[2];  
+    if(temp < ret)  
+		ret = temp; 
+	return ret;
+}
+
+int insertOperation(int i, int j)
+{
+	int ret = c[i+1][j+1];
+	int temp = c[i+1][j] + cost[3]; 
+    if(temp < ret)  
+		ret = temp; 
+	return ret;
+}
+
+int twiddleOperation(int i, int j, char a, char b, char cc, char d)
+{
+	int ret = c[i+1][j+1];
+	//src[i] == dst[j-1] && src[i-1] == dst[j]
+	 if(i && j && a == b && cc == d)  
+     {  
+          int temp = c[i-1][j-1] + cost[4];  
+                if(temp < c[i+1][j+1])  
+                    c[i+1][j+1] = temp;  
+            }  
+	return ret;
+}
+//字符从0开始计数，c[][]从1开始  
+int DP(string src, string dst)  
+{  
+    int i = 0, j = 0;  
+	init(src.length(), dst.length());
+    //DP  
+    for(i = 0; i < src.length(); i++)  
+    {  
+        for(j = 0; j < dst.length(); j++)  
         {  
-            s[i+1][j+1] = 0x7fffffff;  
-            //copy  
-            if(x[i] == z[j])  
-            {  
-                temp = s[i][j] + cost[0];  
-                if(temp < s[i+1][j+1])  
-                    s[i+1][j+1] = temp;  
-            }  
-            //replace  
-            if(x[i] != z[j])  
-            {  
-                temp = s[i][j] + cost[1];  
-                if(temp < s[i+1][j+1])  
-                        s[i+1][j+1] = temp;  
-            }  
-            //delete  
-            temp = s[i][j+1] + cost[2];  
-            if(temp < s[i+1][j+1])  
-                    s[i+1][j+1] = temp;  
-            //insert  
-            temp = s[i+1][j] + cost[3];  
-            if(temp < s[i+1][j+1])  
-                    s[i+1][j+1] = temp;  
-            //twidle  
-            if(i && j && x[i] == z[j-1] && x[i-1] == z[j])  
-            {  
-                temp = s[i-1][j-1] + cost[4];  
-                if(temp < s[i+1][j+1])  
-                    s[i+1][j+1] = temp;  
-            }  
+            c[i+1][j+1] = 0x7fffffff;
+
+			c[i+1][j+1] = copyOperation(i, j, src[i], dst[j]);
+			c[i+1][j+1] = replaceOperation(i, j, src[i], dst[j]);
+			c[i+1][j+1] = deleteOperation(i, j);
+			c[i+1][j+1] = insertOperation(i, j);
+			c[i+1][j+1] = twiddleOperation(i, j, src[i], dst[j-1], src[i-1], dst[j]);
         }  
     }  
     //kill  
-    int ret = s[lx][lz];  
-    for(i = 1; i < lx; i++)  
-        if(s[i][lz] + cost[5] < ret)  
-            ret = s[i][lz] + cost[5];  
+    int ret = c[src.length()][dst.length()];  
+    for(i = 1; i < src.length(); i++)  
+        if(c[i][dst.length()] + cost[5] < ret)  
+            ret = c[i][dst.length()] + cost[5];  
     return ret;  
 }  
 void Print(int lx, int lz)  
@@ -64,16 +105,7 @@ void Print(int lx, int lz)
     for(i = 1; i <= lx; i++)  
     {  
         for(j = 1; j <= lz; j++)  
-            cout<<s[i][j]<<' ';  
+            cout<<c[i][j]<<' ';  
         cout<<endl;  
     }  
-}  
-int main()  
-{  
-    char a[] = "algorithm";  
-    char b[] = "altruistic";  
-    int la = strlen(a), lb = strlen(b);  
-    cout<<DP(a, b, la, lb)<<endl;  
-    Print(la, lb);  
-    return 0;  
 }  
